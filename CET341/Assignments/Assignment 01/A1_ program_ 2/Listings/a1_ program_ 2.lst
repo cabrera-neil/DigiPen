@@ -1,0 +1,186 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Assignment 1 File
+    2 00000000         ; Assembly File for Question 12b
+    3 00000000         ; Title: 64-bit by 64-bit Unsigned Multiplication to 128
+                       -bit Result
+    4 00000000         ; Date: 13-Sep 2019
+    5 00000000         ; Name: Neil Cabrera
+    6 00000000         
+    7 00000000                 AREA             MyData, DATA, READWRITE
+    8 00000000         ; Change the Values Here for Testing Purposes
+    9 00000000         ; 0xFFFFFFFF was used to test the maximum possible value
+                       
+   10 00000000         ; for multiplication
+   11 00000000 FFFFFFFF 
+                       VAL1L   EQU              0xFFFFFFFF
+   12 00000000 FFFFFFFF 
+                       VAL1H   EQU              0xFFFFFFFF
+   13 00000000 FFFFFFFF 
+                       VAL2L   EQU              0xFFFFFFFF
+   14 00000000 FFFFFFFF 
+                       VAL2H   EQU              0xFFFFFFFF
+   15 00000000                 GLOBAL           __main
+   16 00000000                 AREA             Main, CODE, READONLY
+   17 00000000                 ALIGN            2
+   18 00000000                 ENTRY
+   19 00000000         
+   20 00000000         __main
+   21 00000000         ; NOTE: Set Breakpoint at the next line to demonstrate
+   22 00000000         
+   23 00000000         ; Load the Values for Value1 and Value2 High and Low
+   24 00000000 F04F 32FF       LDR              R2, =VAL2L
+   25 00000004 F04F 33FF       LDR              R3, =VAL2H
+   26 00000008 F04F 30FF       LDR              R0, =VAL1L
+   27 0000000C F04F 31FF       LDR              R1, =VAL1H
+   28 00000010         
+   29 00000010         ; Use R11, R10, R9 and R8 to Store the Results
+   30 00000010         ; R11 will contain the MSB, R8 will contain the LSB
+   31 00000010         
+   32 00000010         ; Multiply Val1 Low and Val2 Low First
+   33 00000010         ; Store the Product to LSB R8 and MSB R9
+   34 00000010 FBE0 8962       UMAAL            R8, R9, R0, R2
+   35 00000014         
+   36 00000014         ; Multiply Val1 Low and Val2 High
+   37 00000014         ; Store the Product to LSB R9 and MSB R10
+   38 00000014 FBE0 9A63       UMAAL            R9, R10, R0, R3
+   39 00000018         
+   40 00000018         ; Multiply Val1 High and Val2 Low
+   41 00000018         ; Store the Product to LSB R4 and MSB R5
+   42 00000018 FBE1 4562       UMAAL            R4, R5, R1, R2
+   43 0000001C         
+   44 0000001C         ; Multiply Val1 High and Val2 High
+   45 0000001C         ; Add the Product to R5 and the Carry to R6
+   46 0000001C FBE1 5663       UMAAL            R5, R6, R1, R3
+   47 00000020         
+   48 00000020 EB19 0904       ADDS             R9, R4      ; Add R4 to R9 and 
+                                                            Store in R9, Set th
+                                                            e Flag in case of O
+                                                            verflow  
+   49 00000024 BF28 F10A 
+              0A01             ADDCS            R10,#0x01   ; Conditional Addit
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+                                                            ion if C=1 from Pre
+                                                            vious Operation
+   50 0000002A         
+   51 0000002A EB1A 0A05       ADDS             R10,R5      ; Add R5 to R10 and
+                                                             Store in 10, Set t
+                                                            he Flag in case of 
+                                                            Overflow 
+   52 0000002E BF28 F10B 
+              0B01             ADDCS            R11,#0x01   ; Conditional Addit
+                                                            ion if C=1 from Pre
+                                                            vious Operation
+   53 00000034         
+   54 00000034 EB1B 0B06       ADDS             R11,R6      ; Add R6 to R11 and
+                                                             Store in 10, Set t
+                                                            he Flag in case of 
+                                                            Overflow
+   55 00000038         
+   56 00000038         halt
+   57 00000038 BF00            NOP
+   58 0000003A BF00            NOP
+   59 0000003C E7FC            B                halt        ; Endless Loop
+   60 0000003E                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.sp --apcs=
+interwork --depend=".\objects\a1_ program_ 2.d" -o".\objects\a1_ program_ 2.o" 
+-I.\RTE\_Target_1 -IC:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSI
+S\Core\Include -IC:\Users\cabre\AppData\Local\Arm\Packs\Keil\STM32F7xx_DFP\2.12
+.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include --predefine="__EVAL SETA 1" --pred
+efine="__UVISION_VERSION SETA 528" --predefine="_RTE_ SETA 1" --predefine="STM3
+2F746xx SETA 1" --list=.\listings\a1_ program_ 2.lst "A1_ program_ 2.s"
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+MyData 00000000
+
+Symbol: MyData
+   Definitions
+      At line 7 in file A1_
+   Uses
+      None
+Comment: MyData unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Main 00000000
+
+Symbol: Main
+   Definitions
+      At line 16 in file A1_
+   Uses
+      None
+Comment: Main unused
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 20 in file A1_
+   Uses
+      At line 15 in file A1_
+Comment: __main used once
+halt 00000038
+
+Symbol: halt
+   Definitions
+      At line 56 in file A1_
+   Uses
+      At line 59 in file A1_
+Comment: halt used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+VAL1H FFFFFFFF
+
+Symbol: VAL1H
+   Definitions
+      At line 12 in file A1_
+   Uses
+      At line 27 in file A1_
+Comment: VAL1H used once
+VAL1L FFFFFFFF
+
+Symbol: VAL1L
+   Definitions
+      At line 11 in file A1_
+   Uses
+      At line 26 in file A1_
+Comment: VAL1L used once
+VAL2H FFFFFFFF
+
+Symbol: VAL2H
+   Definitions
+      At line 14 in file A1_
+   Uses
+      At line 25 in file A1_
+Comment: VAL2H used once
+VAL2L FFFFFFFF
+
+Symbol: VAL2L
+   Definitions
+      At line 13 in file A1_
+   Uses
+      At line 24 in file A1_
+Comment: VAL2L used once
+4 symbols
+343 symbols in table

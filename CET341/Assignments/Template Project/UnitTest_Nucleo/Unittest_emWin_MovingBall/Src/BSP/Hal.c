@@ -1,0 +1,243 @@
+/*****************************************************************************
+ @Project	: 
+ @File 		: Hal.c
+ @Details  	: All Ports and peripherals configuration                    
+ @Author	: 
+ @Hardware	: 
+ 
+ --------------------------------------------------------------------------
+ @Revision	:
+  Ver  	Author    	Date        	Changes
+ --------------------------------------------------------------------------
+   1.0  Name     XXXX-XX-XX  		Initial Release
+   
+******************************************************************************/
+#include <Common.h>
+#include "Hal.h"
+
+
+/*****************************************************************************
+ Define
+******************************************************************************/
+
+
+/*****************************************************************************
+ Type definition
+******************************************************************************/
+
+
+/*****************************************************************************
+ Global Variables
+******************************************************************************/
+
+
+/*****************************************************************************
+ Local Variables
+******************************************************************************/
+
+
+/*****************************************************************************
+ Implementation
+******************************************************************************/
+void PortInit( void )
+{
+	/* peripherals bus clocks enable */
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN 
+					| RCC_AHB1ENR_GPIOBEN 
+					| RCC_AHB1ENR_GPIOCEN
+					| RCC_AHB1ENR_GPIODEN
+					| RCC_AHB1ENR_GPIOEEN
+					| RCC_AHB1ENR_GPIOFEN
+					| RCC_AHB1ENR_GPIOGEN
+					| RCC_AHB1ENR_GPIOHEN
+					| RCC_AHB1ENR_GPIOIEN
+					| RCC_AHB1ENR_DMA1EN
+					| RCC_AHB1ENR_DMA2EN
+					| RCC_AHB1ENR_CRCEN;
+					
+	
+	RCC->APB1ENR |= RCC_APB1ENR_PWREN
+					| RCC_APB1ENR_TIM2EN
+					| RCC_APB1ENR_TIM3EN
+					| RCC_APB1ENR_TIM4EN
+					| RCC_APB1ENR_TIM5EN
+					| RCC_APB1ENR_TIM6EN
+					| RCC_APB1ENR_TIM7EN
+                    | RCC_APB1ENR_TIM12EN
+					| RCC_APB1ENR_TIM13EN
+                    | RCC_APB1ENR_TIM14EN
+                    | RCC_APB1ENR_USART2EN
+                    | RCC_APB1ENR_I2C2EN;
+
+	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+ /** Configure the main internal regulator output voltage 
+  */
+	PWR->CR1 &= ~PWR_CR1_VOS;
+	PWR->CR1 |= PWR_CR1_VOS_0 | PWR_CR1_VOS_1;
+
+
+	GPIOE->MODER &= ~GPIO_MODER_MODER0;	
+	GPIOE->MODER |= (GPIO_MODE_INPUT<<GPIO_MODER_MODER0_Pos);
+	GPIOE->PUPDR &= ~GPIO_PUPDR_PUPDR0_Msk;
+       GPIOE->PUPDR |= (GPIO_PULL_UP<<GPIO_PUPDR_PUPDR0_Pos);
+	GPIOE->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR0;
+	GPIOE->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR0_Pos);
+	SYSCFG->EXTICR[0] &= ~SYSCFG_EXTICR1_EXTI0_Msk;
+	SYSCFG->EXTICR[0] |= SYSCFG_EXTICR1_EXTI0_PE;
+	EXTI->EMR |= EXTI_EMR_MR0;
+	EXTI->IMR |= EXTI_EMR_MR0;
+	EXTI->RTSR &= ~EXTI_FTSR_TR0;
+    EXTI->FTSR |= EXTI_FTSR_TR0;
+
+
+	GPIOE->MODER &= ~GPIO_MODER_MODER2;
+	GPIOE->MODER |= (GPIO_MODE_INPUT<<GPIO_MODER_MODER2_Pos);
+	GPIOE->PUPDR &= ~GPIO_PUPDR_PUPDR2_Msk;
+    GPIOE->PUPDR |= (GPIO_PULL_UP<<GPIO_PUPDR_PUPDR2_Pos);
+	GPIOE->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR2;
+	GPIOE->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR2_Pos);
+	SYSCFG->EXTICR[0] &= ~SYSCFG_EXTICR1_EXTI2_Msk;
+	SYSCFG->EXTICR[0] |= SYSCFG_EXTICR1_EXTI2_PE;
+	EXTI->EMR |= EXTI_EMR_MR2;
+	EXTI->IMR |= EXTI_EMR_MR2;
+	EXTI->RTSR &= ~EXTI_FTSR_TR2;
+    EXTI->FTSR |= EXTI_FTSR_TR2;
+
+	GPIOE->MODER &= ~GPIO_MODER_MODER12;
+	GPIOE->MODER |= (GPIO_MODE_INPUT<<GPIO_MODER_MODER12_Pos);
+	GPIOE->PUPDR &= ~GPIO_PUPDR_PUPDR12_Msk;
+    GPIOE->PUPDR |= (GPIO_PULL_UP<<GPIO_PUPDR_PUPDR12_Pos);
+	GPIOE->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR12;
+	GPIOE->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR12_Pos);
+	SYSCFG->EXTICR[3] &= ~SYSCFG_EXTICR4_EXTI12_Msk;
+	SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI12_PE;
+	EXTI->EMR |= EXTI_EMR_MR12;
+	EXTI->IMR |= EXTI_EMR_MR12;
+	EXTI->RTSR &= ~EXTI_FTSR_TR12;
+    EXTI->FTSR |= EXTI_FTSR_TR12;
+
+	/*******************************
+	 LED control pins
+	********************************/
+	GPIOB->MODER &= ~GPIO_MODER_MODER7;									/* PB_LED_BLUE */
+	GPIOB->MODER |= (GPIO_MODE_OUTPUT<<GPIO_MODER_MODER7_Pos);
+	GPIOB->PUPDR &= ~GPIO_PUPDR_PUPDR7_Msk;
+	GPIOB->PUPDR |= (GPIO_PULL_DIS<<GPIO_PUPDR_PUPDR7_Pos);
+	GPIOB->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR7;
+	GPIOB->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR7_Pos);
+	GPIOB->BSRR = GPIO_BSRR_BR_7;
+	
+	GPIOB->MODER &= ~GPIO_MODER_MODER14;								/* PB_LED_RED */
+	GPIOB->MODER |= (GPIO_MODE_OUTPUT<<GPIO_MODER_MODER14_Pos);
+	GPIOB->PUPDR &= ~GPIO_PUPDR_PUPDR14_Msk;
+	GPIOB->PUPDR |= (GPIO_PULL_DIS<<GPIO_PUPDR_PUPDR14_Pos);
+	GPIOB->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR14;
+	GPIOB->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR14_Pos);
+	GPIOB->BSRR = GPIO_BSRR_BR_14;
+
+
+	GPIOF->MODER &= ~GPIO_MODER_MODER7;									/* PF_LED_OB1 */
+	GPIOF->MODER |= (GPIO_MODE_OUTPUT<<GPIO_MODER_MODER7_Pos);
+	GPIOF->PUPDR &= ~GPIO_PUPDR_PUPDR7_Msk;
+	GPIOF->PUPDR |= (GPIO_PULL_DIS<<GPIO_PUPDR_PUPDR7_Pos);
+	GPIOF->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR7;
+	GPIOF->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR7_Pos);
+	GPIOF->BSRR = GPIO_BSRR_BR_7;
+
+	GPIOF->MODER &= ~GPIO_MODER_MODER9;								/* PF_LED_OB2 */
+	GPIOF->MODER |= (GPIO_MODE_OUTPUT<<GPIO_MODER_MODER9_Pos);
+	GPIOF->PUPDR &= ~GPIO_PUPDR_PUPDR9_Msk;
+	GPIOF->PUPDR |= (GPIO_PULL_DIS<<GPIO_PUPDR_PUPDR9_Pos);
+	GPIOF->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR9;
+	GPIOF->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR9_Pos);
+	GPIOF->BSRR = GPIO_BSRR_BR_9;
+
+
+	/*******************************
+	 LCD SPI2
+	********************************/
+	RCC->APB1ENR |= RCC_APB1ENR_SPI2EN;
+
+	GPIOB->MODER &= ~GPIO_MODER_MODER1;									/* PB_LCD_RESET */
+	GPIOB->MODER |= (GPIO_MODE_OUTPUT<<GPIO_MODER_MODER1_Pos);
+	GPIOB->PUPDR &= ~GPIO_PUPDR_PUPDR1;
+	GPIOB->PUPDR |= (GPIO_PULL_UP<<GPIO_PUPDR_PUPDR1_Pos);
+	GPIOB->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR1;
+	GPIOB->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR1_Pos);
+	GPIOB->BSRR = GPIO_BSRR_BS_1;
+
+	GPIOE->MODER &= ~GPIO_MODER_MODER0;									/* PC_LCD_DC */
+	GPIOE->MODER |= (GPIO_MODE_OUTPUT<<GPIO_MODER_MODER0_Pos);
+	GPIOE->PUPDR &= ~GPIO_PUPDR_PUPDR0;
+	GPIOE->PUPDR |= (GPIO_PULL_UP<<GPIO_PUPDR_PUPDR0_Pos);
+	GPIOE->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR0;
+	GPIOE->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR0_Pos);
+	GPIOE->BSRR = GPIO_BSRR_BS_0;
+
+	GPIOB->MODER &= ~GPIO_MODER_MODER2;									/* PB_LCD_BL */
+	GPIOB->MODER |= (GPIO_MODE_OUTPUT<<GPIO_MODER_MODER2_Pos);
+	GPIOB->PUPDR &= ~GPIO_PUPDR_PUPDR2;
+	GPIOB->PUPDR |= (GPIO_PULL_UP<<GPIO_PUPDR_PUPDR2_Pos);
+	GPIOB->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR2;
+	GPIOB->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR2_Pos);
+	GPIOB->BSRR = GPIO_BSRR_BS_2;
+
+	GPIOB->MODER &= ~GPIO_MODER_MODER2;								/* PB_LCD_SPI2_CS */
+	GPIOB->MODER |= (GPIO_MODE_OUTPUT<<GPIO_MODER_MODER2_Pos);
+	GPIOB->PUPDR &= ~GPIO_PUPDR_PUPDR2;
+	GPIOB->PUPDR |= (GPIO_PULL_UP<<GPIO_PUPDR_PUPDR2_Pos);
+	GPIOB->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR2;
+	GPIOB->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR2_Pos);
+	GPIOB->BSRR = GPIO_BSRR_BS_2;
+
+	GPIOD->MODER &= ~GPIO_MODER_MODER3;									/* PD_LCD_SPI2_CLK */
+	GPIOD->MODER |= (GPIO_MODE_AF<<GPIO_MODER_MODER3_Pos);
+	GPIOD->PUPDR &= ~GPIO_PUPDR_PUPDR3;
+	GPIOD->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR3;
+	GPIOD->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR3_Pos);
+	GPIOD->AFR[0] &= ~GPIO_AFRL_AFRL3;
+	GPIOD->AFR[0] |= (GPIO_SPI2_AF5<<GPIO_AFRL_AFRL3_Pos);
+	
+	GPIOB->MODER &= ~GPIO_MODER_MODER14;									/* PB_LCD_SPI2_MISO */
+	GPIOB->MODER |= (GPIO_MODE_AF<<GPIO_MODER_MODER14_Pos);
+	//GPIOB->PUPDR &= ~GPIO_PUPDR_PUPDR14;
+	GPIOB->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR14;
+	GPIOB->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR14_Pos);
+	GPIOB->AFR[1] &= ~GPIO_AFRH_AFRH6;
+	GPIOB->AFR[1] |= (GPIO_SPI2_AF5<<GPIO_AFRH_AFRH6_Pos);	
+	
+	GPIOB->MODER &= ~GPIO_MODER_MODER15;									/* PB_LCD_SPI2_MOSI */	
+	GPIOB->MODER |= (GPIO_MODE_AF<<GPIO_MODER_MODER15_Pos);
+    GPIOB->OSPEEDR &= ~GPIO_OSPEEDER_OSPEEDR15;
+	//GPIOB->PUPDR &= ~GPIO_PUPDR_PUPDR15;
+	GPIOB->OSPEEDR |= (GPIO_SPEED_MAX<<GPIO_OSPEEDER_OSPEEDR15_Pos);
+	GPIOB->AFR[1] &= ~GPIO_AFRH_AFRH7;
+	GPIOB->AFR[1] |= (GPIO_SPI2_AF5<<GPIO_AFRH_AFRH7_Pos);	
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

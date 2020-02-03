@@ -1,0 +1,112 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Assignment 1 File
+    2 00000000         ; Assembly File for Question 12c
+    3 00000000         ; Title: Fast Exp Implementation
+    4 00000000         ; Date: 13-Sep 2019
+    5 00000000         ; Author: Neil Cabrera
+    6 00000000         
+    7 00000000                 AREA             |.text|, CODE, READONLY
+    8 00000000                 EXPORT           fast_exp
+    9 00000000         
+   10 00000000         ; fast_exp has 2 parameters: unsigned int a, unsigned in
+                       t m
+   11 00000000         ; as per the requirements, store a in r6 and m in r7
+   12 00000000         fast_exp
+                               PROC
+   13 00000000         ; parameters are received from r0 and r1
+   14 00000000         ; store r0 to r6
+   15 00000000         ; store r1 to r7
+   16 00000000         ; result is in r8
+   17 00000000 4606            MOV              R6, R0      ; variable base
+   18 00000002 460F            MOV              R7, R1      ; variable exponent
+                                                            
+   19 00000004 F04F 0801       MOV              R8, #1      ; variable result
+   20 00000008         
+   21 00000008         check_e
+   22 00000008         ; Check if exponent is 0
+   23 00000008         ; If 0 result is 1 and then exit
+   24 00000008 2F00            CMP              R7, #0
+   25 0000000A DD0C            BLE              exit
+   26 0000000C         
+   27 0000000C         ; Check if exponent is 1
+   28 0000000C         ; If 1, multiple base to the current result
+   29 0000000C F017 0901       ANDS             R9, R7, #1
+   30 00000010 D904            BLS              shift
+   31 00000012 FB08 F806       MUL              R8, R8, R6
+   32 00000016 F1A7 0701       SUB              R7, R7, #1
+   33 0000001A E7F5            B                check_e
+   34 0000001C         shift
+   35 0000001C         ; If exponent is > 1
+   36 0000001C         ; Multiply base by base and store the result in r6
+   37 0000001C FB06 F606       MUL              R6, R6, R6
+   38 00000020 EA4F 0757       LSR              R7, R7, #1
+   39 00000024 E7F0            B                check_e
+   40 00000026         exit
+   41 00000026 4640            MOV              R0, R8      ; store result (r8)
+                                                             in r0 and return
+   42 00000028 4770            BX               LR
+   43 0000002A         
+   44 0000002A                 ENDP
+   45 0000002A         
+   46 0000002A                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.sp --apcs=
+interwork --depend=".\objects\a1_ program_ 3.d" -o".\objects\a1_ program_ 3.o" 
+-I.\RTE\_Target_1 -IC:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSI
+S\Core\Include -IC:\Users\cabre\AppData\Local\Arm\Packs\Keil\STM32F7xx_DFP\2.12
+.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include --predefine="__EVAL SETA 1" --pred
+efine="__UVISION_VERSION SETA 528" --predefine="_RTE_ SETA 1" --predefine="STM3
+2F746xx SETA 1" --list=.\listings\a1_ program_ 3.lst "A1_ program_ 3.s"
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.text 00000000
+
+Symbol: .text
+   Definitions
+      At line 7 in file A1_
+   Uses
+      None
+Comment: .text unused
+check_e 00000008
+
+Symbol: check_e
+   Definitions
+      At line 21 in file A1_
+   Uses
+      At line 33 in file A1_
+      At line 39 in file A1_
+
+exit 00000026
+
+Symbol: exit
+   Definitions
+      At line 40 in file A1_
+   Uses
+      At line 25 in file A1_
+Comment: exit used once
+fast_exp 00000000
+
+Symbol: fast_exp
+   Definitions
+      At line 12 in file A1_
+   Uses
+      At line 8 in file A1_
+Comment: fast_exp used once
+shift 0000001C
+
+Symbol: shift
+   Definitions
+      At line 34 in file A1_
+   Uses
+      At line 30 in file A1_
+Comment: shift used once
+5 symbols
+340 symbols in table

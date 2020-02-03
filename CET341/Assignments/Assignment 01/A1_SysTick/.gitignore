@@ -1,0 +1,7 @@
+Build/*.jlink
+Build/*.emSession
+Build/Output/
+Lib/
+Src/.clang-format
+Src/BSP/Clock
+Src/BSP/MCU

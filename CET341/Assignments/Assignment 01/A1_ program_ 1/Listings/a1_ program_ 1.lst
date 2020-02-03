@@ -1,0 +1,109 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Assignment 1 File
+    2 00000000         ; Assembly File for Question 12a
+    3 00000000         ; Title: ASM file for 12a
+    4 00000000         ; Date: 13-Sep 2019
+    5 00000000         ; Name: Neil Cabrera
+    6 00000000         
+    7 00000000                 AREA             MyData, DATA, READWRITE
+    8 00000000 89ABCDEF 
+                       VALUE1  EQU              0x89ABCDEF
+    9 00000000                 GLOBAL           __main
+   10 00000000                 AREA             Main, CODE, READONLY
+   11 00000000                 ALIGN            4
+   12 00000000                 ENTRY
+   13 00000000         
+   14 00000000         __main
+   15 00000000         ; NOTE: Set Breakpoint at the next line to demonstrate
+   16 00000000 4805            LDR              R0, =VALUE1 ;Assign value 0x89A
+                                                            BCDEF to the regist
+                                                            er R0.
+   17 00000002 F040 0010       ORR              R0, #0x10   ;Set R0’s bit 4 to 
+                                                            “1”.
+   18 00000006 F020 0008       AND              R0, #0xFFFFFFF7 ;Clear R0’s bit
+                                                             3 to “0”.
+   19 0000000A         
+   20 0000000A         ;Change R0’s bit 27 - 24 to pattern “1110”.
+   21 0000000A F020 6070       AND              R0, #0xF0FFFFFF
+   22 0000000E F040 6060       ORR              R0, #0x0E000000
+   23 00000012         
+   24 00000012         halt
+   25 00000012 BF00            NOP
+   26 00000014 BF00            NOP
+   27 00000016 E7FC            B                halt        ; Endless Loop
+   28 00000018                 END
+              89ABCDEF 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.sp --apcs=
+interwork --depend=".\objects\a1_ program_ 1.d" -o".\objects\a1_ program_ 1.o" 
+-I.\RTE\_Target_1 -IC:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSI
+S\Core\Include -IC:\Users\cabre\AppData\Local\Arm\Packs\Keil\STM32F7xx_DFP\2.12
+.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include --predefine="__EVAL SETA 1" --pred
+efine="__UVISION_VERSION SETA 528" --predefine="_RTE_ SETA 1" --predefine="STM3
+2F746xx SETA 1" --list=.\listings\a1_ program_ 1.lst "A1_ program_ 1.s"
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+MyData 00000000
+
+Symbol: MyData
+   Definitions
+      At line 7 in file A1_
+   Uses
+      None
+Comment: MyData unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Main 00000000
+
+Symbol: Main
+   Definitions
+      At line 10 in file A1_
+   Uses
+      None
+Comment: Main unused
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 14 in file A1_
+   Uses
+      At line 9 in file A1_
+Comment: __main used once
+halt 00000012
+
+Symbol: halt
+   Definitions
+      At line 24 in file A1_
+   Uses
+      At line 27 in file A1_
+Comment: halt used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+VALUE1 89ABCDEF
+
+Symbol: VALUE1
+   Definitions
+      At line 8 in file A1_
+   Uses
+      At line 16 in file A1_
+Comment: VALUE1 used once
+1 symbol
+342 symbols in table

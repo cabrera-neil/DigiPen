@@ -1,0 +1,18 @@
+Instructions:
+
+1) You are to create a program that will take any file, read the content and perform a simple columnar transposition cipher on it, then write the result in a specified output file.
+
+Usage: <ProgramName>.exe <-Mode:string> <InputFilePath:string> <OutputFilePath:string>
+Example: Encrypt.exe -e Input.txt Output.txt
+Given that file "Input.txt" contains: "Hello World"
+"Output.txt" should now contain: "Horde ldlwdlodd"
+
+2) Rename your source file to EncryptSCT.c
+3) Upload the completed EncryptSCT.c here
+4) Download the submission and verify it is correct
+
+The following flags will be used to test your submission:
+-Werror -Wall -Wextra -ansi -pedantic
+
+Any warnings/errors will result in a 5% penalty each.
+A non-working submission will result in a 100% penalty.d

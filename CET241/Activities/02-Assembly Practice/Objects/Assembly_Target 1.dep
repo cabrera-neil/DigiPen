@@ -1,0 +1,12 @@
+Dependencies for Project 'Assembly', Target 'Target 1': (DO NOT MODIFY !)
+F (.\test.s)(0x5D3FEBFC)(--cpu Cortex-M4 --li --pd "__EVAL SETA 1" -g --apcs=interwork -I.\RTE\_Target_1-IC:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\Device\ARM\ARMCM4\Include--pd "__UVISION_VERSION SETA 528" --pd "_RTE_ SETA 1" --pd "ARMCM4 SETA 1"--list .\listings\test.lst --xref -o .\objects\test.o --depend .\objects\test.d)
+F (RTE\Device\ARMCM4\startup_ARMCM4.s)(0x5C8B5FFA)(--cpu Cortex-M4 --li --pd "__EVAL SETA 1" -g --apcs=interwork -I.\RTE\_Target_1-IC:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\Device\ARM\ARMCM4\Include--pd "__UVISION_VERSION SETA 528" --pd "_RTE_ SETA 1" --pd "ARMCM4 SETA 1"--list .\listings\startup_armcm4.lst --xref -o .\objects\startup_armcm4.o --depend .\objects\startup_armcm4.d)
+F (RTE\Device\ARMCM4\system_ARMCM4.c)(0x5C8A247E)(--c99 --gnu -c --cpu Cortex-M4 -D__EVAL --li -g -O0 --apcs=interwork --split_sections-I.\RTE\_Target_1-IC:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\Device\ARM\ARMCM4\Include-D__UVISION_VERSION="528" -D_RTE_ -DARMCM4-o .\objects\system_armcm4.o --omf_browse .\objects\system_armcm4.crf --depend .\objects\system_armcm4.d)
+I (C:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\Device\ARM\ARMCM4\Include\ARMCM4.h)(0x5BBD6B7A)
+I (C:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include\core_cm4.h)(0x5C8F4DD4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CEB79E2)
+I (C:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_version.h)(0x5B971444)
+I (C:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_compiler.h)(0x5C8F4DD4)
+I (C:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include\cmsis_armcc.h)(0x5C8F4DD4)
+I (C:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include\mpu_armv7.h)(0x5C8F4DD4)
+I (C:\Users\cabre\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\Device\ARM\ARMCM4\Include\system_ARMCM4.h)(0x5BBD6B7A)

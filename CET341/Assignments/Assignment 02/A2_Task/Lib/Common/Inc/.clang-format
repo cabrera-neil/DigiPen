@@ -1,0 +1,31 @@
+---
+BasedOnStyle: Chromium
+AccessModifierOffset: '0'
+AlignTrailingComments: 'true'
+AllowAllParametersOfDeclarationOnNextLine: 'true'
+AllowShortBlocksOnASingleLine: 'true'
+AllowShortCaseLabelsOnASingleLine: 'false'
+AllowShortLoopsOnASingleLine: 'false'
+BinPackParameters: 'false'
+BreakBeforeBraces: Allman
+ColumnLimit: '80'
+ConstructorInitializerIndentWidth: '0'
+ContinuationIndentWidth: '0'
+IndentCaseLabels: 'true'
+IndentWidth: '4'
+IndentWrappedFunctionNames: 'true'
+KeepEmptyLinesAtTheStartOfBlocks: 'true'
+Language: Cpp
+MaxEmptyLinesToKeep: '2'
+NamespaceIndentation: All
+SortIncludes: 'false'
+SortUsingDeclarations: 'false'
+SpaceBeforeParens: Never
+SpaceInEmptyParentheses: 'true'
+SpacesBeforeTrailingComments: '0'
+SpacesInAngles: 'false'
+SpacesInParentheses: 'true'
+TabWidth: '4'
+UseTab: Never
+
+...
